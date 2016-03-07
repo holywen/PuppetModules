@@ -1,0 +1,72 @@
+try {
+	#Parameters passed by Puppet
+	$databaseType        = '<%= @ef_database_type %>'
+	$databaseName        = '<%= @ef_database_name %>'
+	$databaseHostName    = '<%= @ef_database_hostname %>'
+	$databasePort        = <%= @ef_database_port %>
+	$databaseUserName    = '<%= @ef_database_user_name %>'
+	$databaseUserPasswd  = '<%= @ef_database_user_passwd %>'
+	$licensePath         = '<%= @ef_license_path %>'
+	$adminUserName       = '<%= @ef_admin_user_name %>'
+	$adminUserPasswd     = '<%= @ef_admin_user_passwd %>'
+    $licenseimportfile   = '<%= @ef_database_licenseimportfile %>'
+	$exe_tool = 'ectool'
+	
+ 	Write-Host '--- Start Electric Flow Database setup'
+    Write-Host 'Set Data base config'
+    $conn = New-Object System.Data.SqlClient.SqlConnection
+    $conn.connectionstring = [string]::format("Server={0};user={1};password={2};",$databaseHostName, $databaseUserName, $databaseUserPasswd)
+    $conn.open()
+    $createDB = $false
+    try {
+        $sql = "SELECT name FROM sys.databases WHERE name = '$databaseName'"
+        $cmd = New-Object Data.SqlClient.SqlCommand $sql, $conn
+        $str = $cmd.ExecuteScalar()
+        if ($str -eq $null) {            
+            $createDB = $true
+        }
+        $conn.Close()  #Close $cmd nicely
+
+        if ($createDB) {
+            Write-Host "DB does not exist - creating database $databaseName";
+            $conn.Open()
+            $sql = "CREATE DATABASE [$databaseName]"
+            $cmd = New-Object Data.SqlClient.SqlCommand $sql, $conn
+            $cmd.ExecuteNonQuery()
+            $conn.Close()
+            Write-Host "Database $databaseName created";
+        }
+        
+        Write-Host 'Calling setDatabaseConfiguration...'
+        &$exe_tool setDatabaseConfiguration --databaseType $databaseType --databaseName $databaseName --hostName $databaseHostName --port $databasePort --ignorePasskeyMismatch 1 --userName $databaseUserName --password $databaseUserPasswd 
+        Write-Host 'setDatabaseConfiguration called succesfully'        
+        
+        Write-Host 'Sleep for 4 minutes to allow EC to initialize...'
+        Start-Sleep -Seconds 240
+        #Import enterprise license
+        
+        Write-Host 'Log in as admin...'
+        &$exe_tool login --userName $adminUserName --password $adminUserPasswd
+        Write-Host 'Log in done, importing license...'
+        
+        &$exe_tool importLicenseData $licensePath
+        Write-Host 'License imported'        
+    }
+    catch {
+        Write-Host $_
+    }
+    finally {
+        if ($conn -ne $null) {
+            $conn.Close()
+        }        	        
+    }
+}
+catch {
+	Write-Host 'An error occurred: ', $_
+}
+
+
+
+ 
+
+
