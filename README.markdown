@@ -1,4 +1,4 @@
-Puppet Module for the Electric Flow 6.0 installation
+Puppet Module for the Electric Flow 8.5 installation
 
 NOTE:
 

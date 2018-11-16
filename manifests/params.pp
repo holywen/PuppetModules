@@ -36,8 +36,8 @@ case $ef_operatingsystem  {
 
       #parameters
       $temp_path                = 'C:\temp\EF'
-      $ef_exe_path              = 'C:\temp\EF\ElectricFlow-6.0.1.96357.exe'
-      $ef_source_path           = 'puppet:///modules/electricflow/ElectricFlow-6.0.1.96357.exe'
+      $ef_exe_path              = 'C:\temp\EF\ElectricFlow-8.5.0.133157.exe'
+      $ef_source_path           = 'puppet:///modules/electricflow/ElectricFlow-8.5.0.133157.exe'
       $ef_database_dbsetupfile  = 'c:\temp\EF\dbsetup_generated.ps1'
       #$ef_database_licenseimportfile = 'c:\temp\EF\licenseimport_generated.ps1'
 
@@ -84,8 +84,8 @@ case $ef_operatingsystem  {
 
     #parameters
     $temp_path                      = '/tmp/EF'
-    $ef_exe_path                    = '/tmp/EF/ElectricFlow-6.0.1.96357'
-    $ef_source_path                 = 'puppet:///modules/electricflow/ElectricFlow-6.0.1.96357'
+    $ef_exe_path                    = '/tmp/EF/ElectricFlow-8.5.0.133157'
+    $ef_source_path                 = 'puppet:///modules/electricflow/ElectricFlow-8.5.0.133157'
 
     $ef_license_path                = "/tmp/EF/${ef_licensefilename}"
 
