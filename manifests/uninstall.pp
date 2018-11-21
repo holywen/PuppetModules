@@ -57,7 +57,7 @@ case $ef_operatingsystem {
     }
 
   }
-  /^(Suse|Debian)$/: {
+  /^(Suse|Debian|RedHat)$/: {
 
       $ef_exec_command        = "${ef_uninstall_file_path}${ef_uninstall_list_options}"
       $ef_uninstall_exec_name = 'uninstall electric flow'

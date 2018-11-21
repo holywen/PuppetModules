@@ -80,12 +80,12 @@ case $ef_operatingsystem  {
       ]
 
   }
-  /^(SLES|Ubuntu)$/: {
+  /^(SLES|Ubuntu|RedHat)$/: {
 
     #parameters
     $temp_path                      = '/tmp/EF'
-    $ef_exe_path                    = '/tmp/EF/ElectricFlow-8.5.0.133157'
-    $ef_source_path                 = 'puppet:///modules/electricflow/ElectricFlow-8.5.0.133157'
+    $ef_exe_path                    = '/tmp/EF/ElectricFlow-x64-8.5.0.133157'
+    $ef_source_path                 = 'puppet:///modules/electricflow/ElectricFlow-x64-8.5.0.133157'
 
     $ef_license_path                = "/tmp/EF/${ef_licensefilename}"
 
@@ -94,7 +94,7 @@ case $ef_operatingsystem  {
 
     $pwstate_keyname                = undef
 
-    $ef_user_name                   = pe-puppet
+    $ef_user_name                   = flow
     $ef_user_passwd                 = undef
 
     $ef_user_group                  = $ef_user_name

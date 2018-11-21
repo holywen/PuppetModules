@@ -71,7 +71,7 @@ case $ef_operatingsystem {
 
 
     }
-    'SLES': {
+    /^(SLES|RedHat)$/: {
 
       $ef_exec_command      = "${ef_exe_path}${ef_install_agent_list_options}"
       $ef_install_exec_name = 'install electric flow'
