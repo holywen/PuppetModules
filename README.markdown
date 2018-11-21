@@ -5,7 +5,7 @@ NOTE:
 This module is now supporting
 
 1) Windows for Server installation
-2) Windows, SLES and Ubuntu for Agent installation
+2) Windows, SLES and Ubuntu and RHEL for Agent installation
 
 
 The module is installing the Electric Flow Server, the web server and the Repository is three different servers
